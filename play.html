@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play</title>
+
+  <link rel="stylesheet" href="style.css">
+  <title>BANANA MATH GAME</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+    <body>
+        <div class="game-container">
+            <h1>BANANA MATH GAME</h1>
+            <div class="info">
+                <p>
+                    Level:<span id="level">1</span>
+                </p>
+                <p>
+                    Score:<span id="score">0</span>
+                </p>
+            </div>
+            <div id="question-box">
+                <img id="questionImage" class="question-img" src="" alt="Banana Puzzle">
+            </div>
+            <input
+            type="number"
+            id="answerInput"
+            placeholder="Enter your answer:"
+            class="answer-input">
+            <button id="submitBtn" class="btn"> Submit</button>
+            <button id="nextBtn" style="display:none;">Next Question</button>
+        </div>
+        <script  src="game.js"></script>
+    </body>
+</html>

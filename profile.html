@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewpoint" content="width=device=width, initial=scale=1.0">
+        <meta name="viewport" content="width=device=width, initial=scale=1.0">
         <title>
            Profile Page </title>
            <link rel="stylesheet" href="style.css">
@@ -14,33 +14,80 @@
         <div class="wrapperPro">
             <form id="profilepage">
                 <h1>PROFILE</h1>
-                <div class="subwrapper">
-                   <div class="image">
-                    
-                   </div>
-                     </div>
-                     <br>           
-                <div class="text">
-                     Username <input type="text" id="username" >
-
-                  
+                <br>
+                <br>
+                <div class="profile-pic-box">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                    id="profileImage"
+                    class="profile-pic">
                 </div>
-                <br>           
-                <div class="text">
-                     Completed Level <input type="text" id="level" >
-
-                  
+                        
+                <div class="profile-info">
+                    <p><strong>Username:</strong> <span id="username"></span></p>
+                    <p><strong>Email:</strong> <span id="email"></span></p>
+                    <p><strong>Score:</strong> <span id="score">0</span></p>
+                    <p><strong>Completed Level:</strong> <span id="level">1</span></p>
                 </div>
-                <br>           
-                <div class="text">
-                     Score <input type="text" id="score" >
-
-                  
-                </div>
-               
+                <button id="logoutbtn" class="btn"><a href="home.html">Logout</a></button>
+              
             </form>
         </div>
-        
+        <script src="profile.js"></script>
+        <!-- Firebase Registration Script -->
+  <script type="module">
+    // Import Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged,signOut } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+   import{getDatabase,ref,child,get}from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnVtJLGRZtbi6crR_313aE_sgq_FhI29U",
+      authDomain: "banana-api-c42f4.firebaseapp.com",
+      projectId: "banana-api-c42f4",
+      storageBucket: "banana-api-c42f4.appspot.com",
+      messagingSenderId: "983621526176",
+      appId: "1:983621526176:web:69aad4f3d7f68ec5971fc5"
+    };
+
+    //Initialize
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    //show user info
+
+    onAuthStateChanged(auth,(user) => {
+        if(!user){
+            window.location.href = "Login.html";
+            return;
+        }
+        const uid = user.uid;
+       
+
+        //load data from realtime database
+        const dbRef = ref(db);
+
+        get(child(dbRef,"users/" + uid)).then((snapshot) => {
+            if(snapshot.exists()) {
+                const userData = snapshot.val();
+
+                document.getElementById("username").value = userData.username || user.email;
+                 document.getElementById("level").value = userData.level || "0";
+                  document.getElementById("score").value = userData.score || "0";
+
+            }
+        });
+    });
+    //logout
+    window.logoutUser = function () {
+        signOut(auth).then(() => {
+            alert("Logged Out!");
+            window.location.href = "home.html";
+        });
+    };
+
+    </script>
         
     </body>
 </html>

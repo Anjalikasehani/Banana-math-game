@@ -290,32 +290,46 @@ a{
     padding: 30px 40px;
     transition: height .2s ease;
     
+    
+}
+.profile-pic-box{
+    margin-bottom: 15px;
+}
+.profile-pic{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #ffcc00;
+}
+.profile-info p{
+    font-size: 18px;
+    margin: 8px 0;
+}
+.btn{
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+    font-weight: 600;
+    
 }
 .wrapperPro h1{
     font-size: 36px;
     text-align: center;
 }
-.wrapperPro text{
-    font-size: 22px;
+
+.wrapperPro text1{
+    font-size: 30px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-align:justify;
 }
-.subwrapper{
-    width: 100px;
-    height: 100px;
-    background-image: url(../images/add-male-user.jpg);
-    background-size:cover;
-    background-position: center;
-    border: 2px solid rgba(255,255,255, .2);
-    backdrop-filter: blur(10px);
-    color: black;
-    border-radius: 12px;
-    padding: 30px 40px;
-    transition: height .2s ease;
-    
-    
-    
-}
+
 .wrapperIns{
     width: 1000px;
     height: 450px;
@@ -338,4 +352,62 @@ a{
     text-align:justify;
     
 }
+.lboard-section ul{
+      display: flex;
+}
+.lboard-section ul li{
+    margin-right: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}
+.lboard-section ul li:hover,
+.lboard-section ul li:active{
+    color: black;
+}
+.game-container{
+    width: 350;
+    margin: 60px auto;
+    padding:20px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #f8d742;
+    text-align: center;
+}
+.infor-box{
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.quesion-img{
+    width: 300px;
+    height:auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #ffd54f;
+}
+.answer-input{
+    width: 80%;
+    padding: 10px;
+    border: 2px solid #ffca28;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+.exbtn{
+    width: 20%;
+    height: 40px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 15px;
+    color: #333;
+    font-weight: 600;
+     
+}
+
+
 
