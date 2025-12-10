@@ -13,6 +13,7 @@
         <div class="game-container">
             <h1>BANANA MATH GAME</h1>
             <div class="info">
+                <p>Player: <span id="username"></span></p>
                 <p>
                     Level:<span id="level">1</span>
                 </p>
@@ -20,6 +21,7 @@
                     Score:<span id="score">0</span>
                 </p>
             </div>
+            <p class="timer">Time Left: <span id="timeLeft">0</span>seconds</p>
             <div id="question-box">
                 <img id="questionImage" class="question-img" src="" alt="Banana Puzzle">
             </div>
@@ -32,5 +34,59 @@
             <button id="nextBtn" style="display:none;">Next Question</button>
         </div>
         <script  src="game.js"></script>
+         <script type="module">
+    // Import Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
+   import{getDatabase,ref,child,get}from "https://www.gstatic.com/firebasejs/12.5.0/firebase-database.js";
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnVtJLGRZtbi6crR_313aE_sgq_FhI29U",
+      authDomain: "banana-api-c42f4.firebaseapp.com",
+      projectId: "banana-api-c42f4",
+      storageBucket: "banana-api-c42f4.appspot.com",
+      messagingSenderId: "983621526176",
+      appId: "1:983621526176:web:69aad4f3d7f68ec5971fc5",
+      databaseURL: "https://banana-api-c42f4-default-rtdb.firebaseio.com"
+    };
+
+    //Initialize
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+   
+
+    //load user infor
+    onAuthStateChanged(auth,(user) =>{
+        if(!user){
+            window.location.href = "login.html";
+            return;
+        }
+        const uid = user.uid;
+        const dbRef = ref(db);
+
+        get(child(dbRef,"users/"+ uid)).then((snapshot) => {
+            if(snapshot.exists()) {
+                const data = snapshot.val;
+
+        document.getElementById("username").innerText = data.username;
+        document.getElementById("score").innerText = data.score;
+        document.getElementById("level").innerText = data.level;
+
+        //pass data to game.js
+        window.currentScore = Number(data.score);
+        window.currentLevel = Number(data.level);
+
+            }else{
+                console.log("user data missing in database");
+            }
+        });
+
+        
+    });
+
+    </script>
     </body>
 </html>

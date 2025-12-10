@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Firebase RTDB quick test</title>
+  <style>body{font-family:Arial;margin:24px} pre{background:#f7f7f7;padding:12px;border-radius:6px}</style>
+</head>
+<body>
+  <h2>Firebase Realtime Database quick test</h2>
+  <p>Make sure you open this page with <strong>http://localhost/...</strong> not file://</p>
+
+  <button id="run">Run test write & read</button>
+  <p id="status">Status: waiting</p>
+  <pre id="log"></pre>
+
+<script type="module">
+  const logEl = document.getElementById('log');
+  const statusEl = document.getElementById('status');
+  function log(...args){ console.log(...args); logEl.textContent += args.map(a=> (typeof a==='object'? JSON.stringify(a,null,2): String(a))).join(' ') + '\n'; }
+
+  // --- Put your firebase config below (exactly) ---
+  const firebaseConfig = {
+    apiKey: "AIzaSyBnVtJLGRZtbi6crR_313aE_sgq_FhI29U",
+    authDomain: "banana-api-c42f4.firebaseapp.com",
+    databaseURL: "https://banana-api-c42f4-default-rtdb.firebaseio.com",
+    projectId: "banana-api-c42f4",
+    storageBucket: "banana-api-c42f4.appspot.com",
+    messagingSenderId: "983621526176",
+    appId: "1:983621526176:web:69aad4f3d7f68ec5971fc5"
+  };
+  // --------------------------------------------
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+  import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-database.js";
+
+  let app, db;
+  try {
+    app = initializeApp(firebaseConfig);
+    db = getDatabase(app);
+    log("Firebase initialized.");
+  } catch(err){
+    log("INITIALIZE ERROR:", err);
+    statusEl.textContent = "Status: init error (see log)";
+  }
+
+  document.getElementById('run').addEventListener('click', async () => {
+    logEl.textContent = '';
+    statusEl.textContent = 'Status: running test... (check console too)';
+    try {
+      const testPath = 'test_node/manual_test';
+      const payload = { ok: true, ts: new Date().toISOString(), note: 'test from local' };
+      await set(ref(db, testPath), payload);
+      log("SET succeeded:", payload);
+      // read back
+      const snap = await get(ref(db, testPath));
+      if (snap.exists()) {
+        log("GET succeeded:", snap.val());
+        statusEl.textContent = 'Status: write+read OK — check RTDB data tab for /test_node/manual_test';
+      } else {
+        log("GET returned no data.");
+        statusEl.textContent = 'Status: read returned no data';
+      }
+    } catch (err) {
+      log("WRITE/READ ERROR:", err);
+      statusEl.textContent = 'Status: error (see log)';
+      // also show network errors if any
+      log("Full error object (for copy):", err);
+    }
+  });
+</script>
+</body>
+</html>
