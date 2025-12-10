@@ -49,13 +49,13 @@
       appId: "1:983621526176:web:69aad4f3d7f68ec5971fc5"
     };
 
-    //Initialize
+    
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    //show user info
+    
 
     onAuthStateChanged(auth,(user) => {
         if(!user){
