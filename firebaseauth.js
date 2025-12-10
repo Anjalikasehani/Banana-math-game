@@ -18,14 +18,15 @@
   const app = initializeApp(firebaseConfig);
 
   //get ref database service
-  const db = getDatabase(app)
+  const db = getDatabase(app);
 
   document.getElementById("submit").addEventListener('click', function(event){
-    set(ref(db, 'user/' * document.getElementById("username").value){
-
-        username: document.getElementById("username").value,
+    set(ref(db, 'user/' * document.getElementById("username").value),{
+      username: document.getElementById("username").value,
         password: document.getElementById("password").value
     })
+
+        
     alert("Login Successfully!");
   })
 
