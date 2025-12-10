@@ -62,4 +62,3 @@ document.getElementById("submitBtn").addEventListener("click", () => {
 document.getElementById("nextBtn").addEventListener("click", () => {
     loadBananaQuestion();
 })
-//system update
