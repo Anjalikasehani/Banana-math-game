@@ -1,5 +1,5 @@
 console.log("profile.js loaded");
-//system updated
+
 
  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
     import { getAuth, onAuthStateChanged,signOut } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
