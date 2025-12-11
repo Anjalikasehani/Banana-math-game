@@ -423,6 +423,14 @@ a{
     font-weight: bold;
     color: #d9534f;
 }
+.num-btn-container button{
+    padding: 20px 15px;
+    margin: 5px;
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+
+}
 
 
 

@@ -13,7 +13,7 @@
         <div class="game-container">
             <h1>BANANA MATH GAME</h1>
             <div class="info">
-                <p>Player: <span id="username"></span></p>
+                <p>Player: <span id="playerName"></span></p>
                 <p>
                     Level:<span id="level">1</span>
                 </p>
@@ -25,17 +25,13 @@
             <div id="question-box">
                 <img id="questionImage" class="question-img" src="" alt="Banana Puzzle">
             </div>
-            <input
-            type="number"
-            id="answerInput"
-            placeholder="Enter your answer:"
-            class="answer-input">
-            <button id="submitBtn" class="btn"> Submit</button>
+           <div id="numberButtons" class="num-btn-container"></div>
             <button id="nextBtn" style="display:none;">Next Question</button>
         </div>
-        <script  src="game.js"></script>
-         <script type="module">
-    // Import Firebase SDK
+        <script  type="module">
+       
+   
+    
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
    import{getDatabase,ref,child,get}from "https://www.gstatic.com/firebasejs/12.5.0/firebase-database.js";
@@ -56,22 +52,21 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-   
-
+  
     //load user infor
     onAuthStateChanged(auth,(user) =>{
         if(!user){
             window.location.href = "login.html";
             return;
         }
-        const uid = user.uid;
+        
         const dbRef = ref(db);
 
-        get(child(dbRef,"users/"+ uid)).then((snapshot) => {
+        get(child(dbRef,"users/"+ user.uid)).then((snapshot) => {
             if(snapshot.exists()) {
                 const data = snapshot.val;
 
-        document.getElementById("username").innerText = data.username;
+        document.getElementById("playerName").innerText = data.username;
         document.getElementById("score").innerText = data.score;
         document.getElementById("level").innerText = data.level;
 
@@ -86,7 +81,9 @@
 
         
     });
+     
 
     </script>
+    <script src="game.js"></script>
     </body>
 </html>
